@@ -1,5 +1,8 @@
 # G-Shock API for Dart & Flutter
 
+[![pub package](https://img.shields.io/pub/v/gshock_api_dart.svg)](https://pub.dev/packages/gshock_api_dart)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 A cross-platform Dart and Flutter library for communicating with Casio G-Shock Bluetooth Low Energy (BLE) watches.
 
 Provides full feature support including automatic time synchronization, alarms, countdown timers, reminders, battery and temperature telemetry, step counting and activity logs, app notification forwarding, and watch configuration settings.
@@ -39,19 +42,27 @@ Provides full feature support including automatic time synchronization, alarms, 
 
 ### Installation
 
-Add `gshock_api_dart` to your `pubspec.yaml`:
+Add `gshock_api_dart` from [pub.dev](https://pub.dev/packages/gshock_api_dart):
+
+```bash
+# Dart projects
+dart pub add gshock_api_dart
+
+# Flutter projects
+flutter pub add gshock_api_dart
+```
+
+Or add it directly to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  gshock_api_dart:
-    path: /path/to/gshock_api_dart # or git / pub dependency
+  gshock_api_dart: ^0.0.1
 ```
 
 If you are building a **Flutter** app, also add `flutter_blue_plus`:
 
-```yaml
-dependencies:
-  flutter_blue_plus: ^1.35.0
+```bash
+flutter pub add flutter_blue_plus
 ```
 
 ---
