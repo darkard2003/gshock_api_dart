@@ -1,5 +1,18 @@
-/// ABL-100WE life-log record representation mirroring `model/step_counter_data.py`.
+/// {@category Data Models}
+///
+/// Lifelog and pedometer step data container.
+///
+/// Models such as the ABL-100WE, F-B100W, and GBD-200 record daily step totals
+/// and 24 hourly step accumulation buckets. Unrecorded or future hourly buckets
+/// are marked with the sentinel value `0xFFFE`.
 class StepCounterData {
+  /// Sentinel value indicating an unrecorded or future hourly step bucket (`0xFFFE`).
+  static const int unrecordedHour = 0xFFFE;
+
+  /// Sentinel value indicating an unrecorded daily total (`0xFFFFFFFE`).
+  static const int unrecordedDay = 0xFFFFFFFE;
+
+  /// Creates a [StepCounterData] container.
   StepCounterData({
     this.timestamp,
     this.dayOfWeek,

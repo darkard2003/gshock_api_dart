@@ -2,7 +2,7 @@ name: gshock_api_dart
 description: >-
   Cross-platform Dart & Flutter library for Casio G-Shock Bluetooth watches.
   Pure-Dart core with swappable BLE transports (Flutter, Linux BlueZ, and Mock).
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/darkard2003/gshock_api_dart
 repository: https://github.com/darkard2003/gshock_api_dart
 issue_tracker: https://github.com/darkard2003/gshock_api_dart/issues
@@ -12,9 +12,9 @@ environment:
 
 dependencies:
   # Pure-Dart IANA timezone database (no Flutter / platform dependency).
-  bluez: ^0.8.3
   timezone: ^0.11.1
 
 dev_dependencies:
+  bluez: ^0.8.3
   lints: ^6.0.0
   test: ^1.25.6

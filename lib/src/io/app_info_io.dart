@@ -9,6 +9,7 @@ import '../util/cancelable_result.dart';
 import '../util/logger.dart';
 
 /// Pure functional app-info handshake.
+/// @nodoc
 class AppInfoIOFunctional {
   AppInfoIOFunctional._();
 
@@ -56,6 +57,7 @@ class AppInfoIOFunctional {
 }
 
 /// Stateful wrapper around [AppInfoIOFunctional].
+/// @nodoc
 class AppInfoIO {
   AppInfoIO._();
 

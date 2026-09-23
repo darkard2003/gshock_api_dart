@@ -2,14 +2,25 @@ import '../constants/casio_constants.dart';
 import '../util/bytes.dart';
 import '../util/logger.dart';
 
+/// Wire bitmask flag indicating the hourly chime is enabled (`0x80`).
 const int hourlyChimeMask = 0x80;
+
+/// Wire bitmask flag indicating an alarm slot is active (`0x40`).
 const int enabledMask = 0x40;
+
+/// Constant discriminator byte in Casio alarm wire packets (`0x40`).
 const int alarmConstantValue = 0x40;
 
 const Map<String, int> _characteristics = CasioConstants.characteristics;
 
-/// Immutable alarm value object.
+/// {@category Data Models}
+///
+/// Immutable representation of a single watch alarm slot.
+///
+/// Holds the scheduled time ([hour], [minute]), active toggle ([enabled]),
+/// and whether the hourly time signal beep ([hasHourlyChime]) is enabled.
 class Alarm {
+  /// Creates an immutable [Alarm].
   const Alarm({
     required this.hour,
     required this.minute,
@@ -17,6 +28,7 @@ class Alarm {
     this.hasHourlyChime = false,
   });
 
+  /// Deserializes an [Alarm] from a JSON-compatible map.
   factory Alarm.fromJson(Map<String, Object?> json) {
     return Alarm(
       hour: (json['hour'] as int?) ?? 0,
@@ -26,11 +38,19 @@ class Alarm {
     );
   }
 
+  /// Alarm hour in 24-hour format (0 to 23).
   final int hour;
+
+  /// Alarm minute (0 to 59).
   final int minute;
+
+  /// Whether this alarm is turned on.
   final bool enabled;
+
+  /// Whether the watch's hourly signal chime is enabled. Only valid on the primary alarm (slot 0).
   final bool hasHourlyChime;
 
+  /// Serializes this alarm to a map.
   Map<String, Object?> toJson() => <String, Object?>{
     'enabled': enabled,
     'hasHourlyChime': hasHourlyChime,
@@ -56,20 +76,27 @@ class Alarm {
       'Alarm(hour: $hour, minute: $minute, enabled: $enabled, hasHourlyChime: $hasHourlyChime)';
 }
 
-/// Mutable alarm collection mirroring `Alarms` in Python.
+/// {@category Data Models}
+///
+/// Mutable alarm collection and Casio BLE wire packet encoder.
 class Alarms {
+  /// The list of alarm configuration maps managed by this collection.
   final List<Map<String, Object?>> alarms = <Map<String, Object?>>[];
 
+  /// Clears all stored alarms.
   void clear() => alarms.clear();
 
+  /// Appends [alarmJsonArr] to the alarm collection.
   void addAlarms(List<Map<String, Object?>> alarmJsonArr) {
     alarms.addAll(alarmJsonArr);
   }
 
+  /// Encodes the first alarm map into wire bytes for characteristic `CASIO_SETTING_FOR_ALM`.
   List<int> fromJsonAlarmFirstAlarm(Map<String, Object?> alarm) {
     return createFirstAlarm(alarm);
   }
 
+  /// Encodes the primary alarm into Casio wire bytes (`0x15`).
   List<int> createFirstAlarm(Map<String, Object?> alarm) {
     var flag = 0;
     if (alarm['enabled'] == true) flag |= enabledMask;
@@ -84,8 +111,7 @@ class Alarms {
     ];
   }
 
-  /// NOTE: preserves the Python quirk (D6) that this slices the accumulated
-  /// state (`self.alarms[1:]`) and ignores the argument.
+  /// Encodes secondary alarms (slots 1..4) into wire bytes for characteristic `CASIO_SETTING_FOR_ALM2`.
   List<int> fromJsonAlarmSecondaryAlarms(
     List<Map<String, Object?>> alarmsJson,
   ) {
@@ -96,6 +122,7 @@ class Alarms {
     return createSecondaryAlarm(secondary);
   }
 
+  /// Encodes a list of secondary alarms into Casio wire bytes (`0x16`).
   List<int> createSecondaryAlarm(List<Map<String, Object?>> alarms) {
     final allAlarms = <int>[_characteristics['CASIO_SETTING_FOR_ALM2']!];
     for (final alarm in alarms) {
@@ -113,10 +140,10 @@ class Alarms {
   }
 }
 
-/// Global alarm instance (mirrors Python's module global `alarms_inst`).
+/// Global alarm instance.
 final Alarms alarmsInst = Alarms();
 
-/// Decodes alarm byte payloads into JSON-like maps.
+/// @nodoc
 class AlarmDecoder {
   Map<String, List<Map<String, Object?>>> toJson(String command) {
     final jsonResponse = <String, List<Map<String, Object?>>>{};

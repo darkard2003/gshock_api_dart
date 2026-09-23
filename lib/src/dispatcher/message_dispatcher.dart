@@ -29,8 +29,13 @@ const Map<String, int> _characteristics = CasioConstants.characteristics;
 typedef WatchSender = Future<void> Function(String message);
 typedef OnReceivedFunction = void Function(Uint8List data);
 
-/// Dispatches action messages to IO senders and routes received data to
-/// handlers via the active [WatchProtocol].
+/// {@category Protocols & Constants}
+///
+/// Central message routing engine for action dispatching and incoming notification demultiplexing.
+///
+/// Associates JSON action command strings with feature sender functions,
+/// and routes raw incoming BLE notifications to their respective feature decoders
+/// according to the active [WatchProtocol].
 class MessageDispatcher {
   MessageDispatcher._();
 

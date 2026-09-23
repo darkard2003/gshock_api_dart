@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-/// Pure byte/hex helpers mirroring `gshock_api/src/gshock_api/utils.py`.
+/// {@category Utilities & Exceptions}
 ///
-/// Kept platform- and BLE-free so they can be unit-tested without a device.
+/// High-performance byte manipulation, hex conversion, and endianness utilities.
+///
+/// Implements zero-allocation parsing, nibble lookups, and compact Casio command string
+/// parsing (`utils.to_casio_cmd`).
 class Bytes {
   const Bytes._();
 

@@ -17,6 +17,7 @@ final Uint8List resetSequenceStart = Uint8List.fromList(<int>[
 final Uint8List resetSequenceEnd = Uint8List.fromList(<int>[0x21, 0x01, 0x01]);
 
 /// Implements the MTG-B1000 second-dial sequence.
+/// @nodoc
 class SecondDialIO {
   SecondDialIO._();
 

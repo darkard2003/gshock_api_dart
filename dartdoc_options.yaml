@@ -1,0 +1,22 @@
+dartdoc:
+  validateLinks: true
+  categories:
+    "Core API":
+      markdown: doc/categories/core_api.md
+    "Connection & Transport":
+      markdown: doc/categories/connection.md
+    "Data Models":
+      markdown: doc/categories/models.md
+    "Protocols & Constants":
+      markdown: doc/categories/protocols.md
+    "Timezone":
+      markdown: doc/categories/timezone.md
+    "Utilities & Exceptions":
+      markdown: doc/categories/utilities.md
+  categoryOrder:
+    - "Core API"
+    - "Connection & Transport"
+    - "Data Models"
+    - "Protocols & Constants"
+    - "Timezone"
+    - "Utilities & Exceptions"

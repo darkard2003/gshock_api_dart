@@ -2,15 +2,17 @@ import 'dart:async';
 
 import '../exceptions.dart';
 
-/// Await-a-notification primitive mirroring
-/// `gshock_api/src/gshock_api/cancelable_result.py`.
+/// {@category Utilities & Exceptions}
 ///
-/// Unlike Python, callers should create the result *before* issuing the
-/// triggering write (register-before-write) to avoid losing fast
-/// notifications.
+/// Async notification awaiting primitive with timeout and cancellation support.
+///
+/// Implements the register-before-write pattern to prevent race conditions where
+/// fast watch notifications arrive before the listening future is registered.
 class CancelableResult<T> {
+  /// Creates a [CancelableResult] with the specified [timeout] (defaults to 10 seconds).
   CancelableResult({this.timeout = const Duration(seconds: 10)});
 
+  /// Maximum duration to await notification completion before timing out.
   final Duration timeout;
   final Completer<T> _completer = Completer<T>();
 

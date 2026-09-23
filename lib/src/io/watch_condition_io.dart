@@ -8,6 +8,7 @@ import '../util/cancelable_result.dart';
 import '../util/logger.dart';
 
 /// Pure functional watch-condition decoder.
+/// @nodoc
 class WatchConditionIOFunctional {
   WatchConditionIOFunctional._();
 
@@ -48,6 +49,7 @@ class WatchConditionIOFunctional {
 }
 
 /// Stateful wrapper around [WatchConditionIOFunctional].
+/// @nodoc
 class WatchConditionIO {
   WatchConditionIO._();
 

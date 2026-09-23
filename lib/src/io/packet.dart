@@ -3,6 +3,7 @@ import 'dart:typed_data';
 /// Packet ADTs mirroring `gshock_api/src/gshock_api/iolib/packet.py`.
 
 /// Characteristic protocol/feature codes.
+/// @nodoc
 enum Protocol {
   appInfo(0x22),
   watchName(0x23),
@@ -47,6 +48,7 @@ enum Protocol {
 }
 
 /// Packet header.
+/// @nodoc
 class Header {
   Header({required this.protocol, required this.size});
 
@@ -55,6 +57,7 @@ class Header {
 }
 
 /// Packet payload.
+/// @nodoc
 class Payload {
   Payload({required this.data});
 
@@ -62,6 +65,7 @@ class Payload {
 }
 
 /// Packet trailer.
+/// @nodoc
 class Trailer {
   Trailer({required this.data, required this.checksum});
 

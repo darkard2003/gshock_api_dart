@@ -27,7 +27,12 @@ import 'watch_protocol.dart';
 
 const int handleAllFeatures = 0x0E;
 
-/// Standard protocol implementation for digital G-Shock watches.
+/// {@category Protocols & Constants}
+///
+/// Standard protocol implementation for digital and hybrid G-Shock watches.
+///
+/// Used by watches such as the GW-B5600, DW-B5600, GMW-B5000, and GA-B2100.
+/// Features a single-byte discriminator header and standard 10-byte time synchronizations.
 class StandardProtocol extends WatchProtocol {
   @override
   Map<int, void Function(Uint8List data)> get dataReceivedHandlers =>

@@ -8,6 +8,7 @@ import '../util/cancelable_result.dart';
 import '../util/logger.dart';
 
 /// Pure functional world-cities command generator.
+/// @nodoc
 class WorldCitiesIOFunctional {
   WorldCitiesIOFunctional._();
 
@@ -20,6 +21,7 @@ class WorldCitiesIOFunctional {
 }
 
 /// Stateful wrapper around [WorldCitiesIOFunctional].
+/// @nodoc
 class WorldCitiesIO {
   WorldCitiesIO._();
 

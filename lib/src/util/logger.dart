@@ -5,19 +5,42 @@
 /// their own framework (and so tests stay quiet by default).
 library;
 
-/// Log severity levels.
-enum GshockLogLevel { debug, info, warning, error }
+/// {@category Utilities & Exceptions}
+///
+/// Log severity levels for G-Shock Bluetooth operations.
+enum GshockLogLevel {
+  /// Verbose protocol and packet dumps.
+  debug,
+
+  /// General operational status messages.
+  info,
+
+  /// Recoverable issues or unrecognized packets.
+  warning,
+
+  /// Connection failures and protocol errors.
+  error,
+}
 
 typedef GshockLogSink = void Function(GshockLogLevel level, String message);
 
 /// Joins arguments the way `print()` does.
 String _join(List<Object?> args) => args.map((a) => '$a').join(' ');
 
-/// A tiny logger.
+/// {@category Utilities & Exceptions}
+///
+/// Configurable zero-allocation logger for the G-Shock library.
+///
+/// Supports custom sink redirection to Flutter's `debugPrint`, standard logging frameworks,
+/// or file outputs.
 class GshockLogger {
+  /// Creates a logger configured with [level] and optional output [sink].
   GshockLogger({this.level = GshockLogLevel.info, this.sink});
 
+  /// Minimum severity level required for messages to be logged.
   final GshockLogLevel level;
+
+  /// Optional sink receiving formatted log messages.
   final GshockLogSink? sink;
 
   void _log(

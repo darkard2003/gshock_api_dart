@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import '../util/logger.dart';
 
 /// Logs unknown characteristic payloads.
+/// @nodoc
 class UnknownIO {
   UnknownIO._();
 

@@ -8,6 +8,7 @@ import '../util/cancelable_result.dart';
 import '../util/logger.dart';
 
 /// Pure functional DST-for-world-cities command generator.
+/// @nodoc
 class DstForWorldCitiesIOFunctional {
   DstForWorldCitiesIOFunctional._();
 
@@ -20,6 +21,7 @@ class DstForWorldCitiesIOFunctional {
 }
 
 /// Stateful wrapper around [DstForWorldCitiesIOFunctional].
+/// @nodoc
 class DstForWorldCitiesIO {
   DstForWorldCitiesIO._();
 

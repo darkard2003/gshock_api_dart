@@ -12,6 +12,7 @@ import '../util/cancelable_result.dart';
 const Map<String, int> _characteristics = CasioConstants.characteristics;
 
 /// Pure functional core for the alarm protocol.
+/// @nodoc
 class AlarmsIOFunctional {
   AlarmsIOFunctional._();
 
@@ -73,6 +74,7 @@ class AlarmsIOFunctional {
 }
 
 /// Imperative shell managing alarm IO and shared state.
+/// @nodoc
 class AlarmsIO {
   AlarmsIO._();
 

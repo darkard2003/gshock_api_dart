@@ -7,7 +7,12 @@ import '../io/time_io.dart';
 import '../model/watch_info.dart';
 import 'standard_protocol.dart';
 
-/// Protocol implementation for analogue G-Shock watches (MTG-B1000/B3000).
+/// {@category Protocols & Constants}
+///
+/// Protocol implementation for premium analogue G-Shock watches (MTG-B1000, MTG-B3000, GST-B100).
+///
+/// Handles analogue dial motor calibrations, wrapped envelope unpacking,
+/// second-dial reset sequences, and 12-byte settings formats.
 class AnalogueProtocol extends StandardProtocol {
   @override
   int? extractKey(Uint8List data) {

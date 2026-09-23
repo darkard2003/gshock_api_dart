@@ -8,3 +8,6 @@ pubspec.lock
 
 # Local, persistent pub cache (this sandbox's $HOME is ephemeral).
 .dart_tool/pub-cache/
+
+# Generated documentation output
+doc/api/

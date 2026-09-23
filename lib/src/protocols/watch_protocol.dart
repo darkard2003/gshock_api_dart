@@ -5,12 +5,22 @@ import '../io/connection_protocol.dart';
 import '../io/dst_watch_state_io.dart';
 import '../model/step_counter_data.dart';
 
-/// Abstract protocol interface mirroring `WatchProtocol`.
+/// {@category Protocols & Constants}
+///
+/// Abstract strategy contract defining Casio watch communication protocols.
+///
+/// Concrete implementations:
+/// - `StandardProtocol`: Standard digital and hybrid G-Shock watches.
+/// - `MipProtocol`: Memory-in-Pixel display watches (GW-BX5600, GMW-BZ5000) using 4-step SP configuration handshake.
+/// - `AnalogueProtocol`: Full analogue watches (MTG-B1000, MTG-B3000) managing motor alignment and second-dial calibration.
 abstract class WatchProtocol {
+  /// Notification dispatch map associating characteristic codes with packet consumer handlers.
   Map<int, void Function(Uint8List data)> get dataReceivedHandlers;
 
+  /// Extracts the notification feature discriminator key from raw packet [data].
   int? extractKey(Uint8List data);
 
+  /// Unwraps the inner payload bytes for [key] from the raw packet [data].
   Uint8List unwrapPayload(Uint8List data, int key);
 
   String getWatchConditionRequest();

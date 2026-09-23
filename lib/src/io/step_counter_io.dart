@@ -47,6 +47,7 @@ int _u16(ByteData bd, int offset) => bd.getUint16(offset, Endian.little);
 int _u32(ByteData bd, int offset) => bd.getUint32(offset, Endian.little);
 
 /// Pure functional decoder for ABL-100WE life-log records.
+/// @nodoc
 class StepCounterIOFunctional {
   StepCounterIOFunctional._();
 
@@ -319,6 +320,7 @@ class StepCounterIOFunctional {
 }
 
 /// Stateful manager for requesting, accumulating and decoding lifelog data.
+/// @nodoc
 class StepCounterIO {
   StepCounterIO._();
 

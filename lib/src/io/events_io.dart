@@ -9,6 +9,7 @@ import '../util/cancelable_result.dart';
 import '../util/logger.dart';
 
 /// Reminder bitmasks.
+/// @nodoc
 abstract final class ReminderMasks {
   static const int yearlyMask = 0x08;
   static const int monthlyMask = 0x10;
@@ -26,6 +27,7 @@ abstract final class ReminderMasks {
 }
 
 /// Time period (enabled + repeat period).
+/// @nodoc
 class TimePeriod {
   TimePeriod(this.enabled, this.repeatPeriod);
 
@@ -64,6 +66,7 @@ const List<String> _monthNames = <String>[
 ];
 
 /// Pure functional reminders/events codec.
+/// @nodoc
 class EventsIOFunctional {
   EventsIOFunctional._();
 
@@ -298,6 +301,7 @@ class EventsIOFunctional {
 }
 
 /// Decodes reminder titles.
+/// @nodoc
 class ReminderDecoder {
   ReminderDecoder._();
 
@@ -311,6 +315,7 @@ class ReminderDecoder {
 }
 
 /// Stateful wrapper around [EventsIOFunctional].
+/// @nodoc
 class EventsIO {
   EventsIO._();
 

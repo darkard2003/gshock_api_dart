@@ -1,20 +1,34 @@
 import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
-/// Latitude/longitude pair.
+/// {@category Timezone}
+///
+/// Geographic coordinate pair representing latitude and longitude in decimal degrees.
 class LatLon {
+  /// Creates a [LatLon] pair.
   const LatLon(this.lat, this.lon);
 
+  /// Latitude in degrees (-90.0 to +90.0).
   final double lat;
+
+  /// Longitude in degrees (-180.0 to +180.0).
   final double lon;
 }
 
-/// Result of a world-city coordinate lookup.
+/// {@category Timezone}
+///
+/// Result of looking up world-city geographic coordinates.
 class WorldCityCoordinates {
+  /// Creates a [WorldCityCoordinates] instance.
   const WorldCityCoordinates(this.lat, this.lon, this.exact);
 
+  /// Latitude coordinate in decimal degrees.
   final double lat;
+
+  /// Longitude coordinate in decimal degrees.
   final double lon;
+
+  /// Whether the coordinate matched an exact city entry rather than an interpolated timezone center.
   final bool exact;
 }
 
@@ -28,8 +42,13 @@ void ensureTimeZonesInitialized() {
   }
 }
 
-/// A Casio timezone entry. Mirrors `CasioTimeZone` in Python.
+/// {@category Timezone}
+///
+/// Casio watch timezone table entry.
+///
+/// Associates a Casio display city name with an IANA zone identifier and seasonal DST rules.
 class CasioTimeZone {
+  /// Creates a [CasioTimeZone] entry.
   CasioTimeZone(this.name, this.zoneName, [this.dstRulesValue = 0]);
 
   final String name;
@@ -115,7 +134,13 @@ class CasioTimeZone {
   }
 }
 
-/// Helper providing Casio timezone mapping and coordinate lookup.
+/// {@category Timezone}
+///
+/// Timezone resolution and world-city geographic coordinate database for Casio watches.
+///
+/// Casio watches represent time offsets in units of 15 minutes (`offset ~/ 900`).
+/// This helper resolves IANA timezone names (e.g. `'America/New_York'`, `'Asia/Tokyo'`),
+/// computes standard and daylight saving offsets, and maps watch city indexes.
 class CasioTimeZoneHelper {
   CasioTimeZoneHelper._();
 

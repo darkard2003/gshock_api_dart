@@ -10,7 +10,7 @@ This folder contains the concrete hardware BLE adapters connecting `gshock_api_d
 dependencies:
   flutter:
     sdk: flutter
-  gshock_api_dart: ^0.0.1
+  gshock_api_dart: ^0.1.0
   flutter_blue_plus: ^1.35.0
 ```
 

@@ -1,5 +1,6 @@
 /// Connection interface mirroring
 /// `gshock_api/src/gshock_api/iolib/connection_protocol.py`.
+/// @nodoc
 abstract class ConnectionProtocol {
   /// Sends a read request for [code] using the read-request characteristic.
   Future<void> request(Object code);

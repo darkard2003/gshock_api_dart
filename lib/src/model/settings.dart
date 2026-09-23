@@ -1,5 +1,11 @@
-/// Watch settings state container mirroring `model/settings.py`.
+/// {@category Data Models}
+///
+/// Watch configuration and preferences entity.
+///
+/// Encapsulates display formatting, button sounds, auto illumination,
+/// power saving mode, and automatic Bluetooth time synchronization.
 class Settings {
+  /// Creates a [Settings] instance.
   Settings({
     this.timeFormat = '',
     this.dateFormat = '',
@@ -12,14 +18,31 @@ class Settings {
     this.timeAdjustmentMinutesAfterHour = 30,
   });
 
+  /// Time display format (`'12h'` or `'24h'`).
   String timeFormat;
+
+  /// Date format displayed on the LCD (`'DD.MM'` or `'MM.DD'`).
   String dateFormat;
+
+  /// Day of the week language (`'English'`, `'Spanish'`, `'French'`, `'German'`, `'Italian'`, `'Russian'`).
   String language;
+
+  /// Whether auto-light (illuminating display when tilting wrist towards face) is enabled.
   bool autoLight;
+
+  /// Backlight duration (`'1.5s'` or `'3s'`).
   String lightDuration;
+
+  /// Whether power saving sleep mode is active (blanking the display in darkness after inactivity).
   bool powerSavingMode;
+
+  /// Whether button beep sounds / key tone is enabled.
   bool buttonTone;
+
+  /// Whether automatic 4x daily time synchronization is enabled.
   bool timeAdjustment;
+
+  /// Minute offset after the hour for scheduled automatic time synchronization.
   int timeAdjustmentMinutesAfterHour;
 
   Settings copyWith({

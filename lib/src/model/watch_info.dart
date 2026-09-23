@@ -3,32 +3,84 @@ import '../protocols/mip_protocol.dart';
 import '../protocols/standard_protocol.dart';
 import '../protocols/watch_protocol.dart';
 
-/// Watch model families. Mirrors `WatchModel` in `watch_info.py`.
+/// {@category Data Models}
+///
+/// Watch model families recognized by the library.
+///
+/// Used by the capability subsystem to determine protocol dialect overrides,
+/// settings sizes, alarm counts, and feature support.
 enum WatchModel {
+  /// Analogue-digital GA series (e.g. GA-B2100 Casioak, GA-B001).
   ga,
+
+  /// Tough Solar / Multi-Band 6 digital series (e.g. GW-B5600, GWG-B1000).
   gw,
+
+  /// DW-B5600 digital series with phone sync.
   dwB5600,
+
+  /// Digital DW series.
   dw,
+
+  /// Full-metal GMW series (e.g. GMW-B5000).
   gmw,
+
+  /// Rangeman / GPS series (e.g. GPR-B1000).
   gpr,
+
+  /// G-Steel series (e.g. GST-B100, GST-B400, GST-B500).
   gst,
+
+  /// Baby-G MSG series (e.g. MSG-B100).
   msg,
+
+  /// Jason / G-B001 capsule series.
   gb001,
+
+  /// G-Squad fitness series (e.g. GBD-200, GBD-100).
   gbd,
+
+  /// G-Squad GBD-800 series.
   gbd800,
+
+  /// Premium titanium MR-G series (e.g. MRG-B5000).
   mrgB5000,
+
+  /// Carbon GCW series (e.g. GCW-B5000).
   gcwB5000,
+
+  /// Edifice EQB chronograph series (e.g. EQB-500, EQB-1000, EQB-2000).
   eqb,
+
+  /// Edifice ECB series (e.g. ECB-10, ECB-30, ECB-2000).
   ecb,
+
+  /// Casio Classic step tracker series (ABL-100WE).
   abl100,
+
+  /// Casio Classic step tracker series (F-B100W).
   fB100,
+
+  /// Smart fitness MIP series (DW-H5600).
   dwH5600,
+
+  /// MIP full-metal series (GMW-BZ5000).
   gmwBz5000,
+
+  /// MIP square series (GW-BX5600).
   gwBx5600,
+
+  /// Metal Twisted G-Shock MTG-B1000 with second dial.
   mtgB1000,
+
+  /// Metal Twisted G-Shock MTG-B3000 analogue flagship.
   mtgB3000,
+
+  /// Generic fallback for standard G-Shock protocol watches.
   generic,
-  unknown, // legacy fallback alias for generic
+
+  /// Legacy alias for generic.
+  unknown,
 }
 
 /// Protocol singletons used as `ModelInfo` defaults.
@@ -36,7 +88,15 @@ final WatchProtocol standardProtocol = StandardProtocol();
 final WatchProtocol mipProtocol = MipProtocol();
 final WatchProtocol analogueProtocol = AnalogueProtocol();
 
-/// Per-model capabilities. Mirrors the `ModelInfo` dataclass.
+/// {@category Data Models}
+///
+/// Capability profile and dialect configuration for a watch model family.
+///
+/// Encapsulates all dialect gates and feature flags:
+/// - **Display & Timing**: [hasNewTimeFormat] (MIP 4-step SP flow), [hasSecondDial] (MTG-B1000 motor calibration), [settingsSize] (12 bytes on MTG-B3000 vs 17 bytes on Standard).
+/// - **Sensors & Health**: [hasStepCounter] (lifelog protocol on ABL-100WE / GBD-200), [hasBatteryLevel], [hasTemperature].
+/// - **Alerts & Messages**: [hasMessages] (push notifications on DW-H5600), [alarmCount], [hasReminders].
+/// - **Connection**: [alwaysConnected] (triggers `AlwaysConnectedWatchFilter` 6-hour connection throttling).
 class ModelInfo {
   ModelInfo({
     required this.model,
@@ -545,16 +605,35 @@ ModelInfo resolveModelInfo(WatchModel model) {
   return _modelMap[model] ?? _modelMap[WatchModel.generic]!;
 }
 
-/// Tracks characteristics and capabilities of the currently connected watch.
+/// {@category Data Models}
+///
+/// State container tracking the identity and capabilities of the currently connected watch.
+///
+/// Automatically populated by [setNameAndModel] when a watch name is discovered during BLE scanning
+/// or initial connection handshake.
+///
+/// > **Important**: Always call [reset] when disconnecting to ensure capability flags
+/// > (such as MIP time format or second-dial settings) do not leak into subsequent connections.
 class WatchInfo {
+  /// Creates a [WatchInfo] instance with default `generic` capabilities.
   WatchInfo();
 
+  /// Full advertised name of the watch (e.g. `'CASIO GW-B5600'`).
   String name = '';
+
+  /// Short model identifier derived from the name (e.g. `'GW-B5600'`).
   String shortName = '';
+
+  /// Bluetooth MAC address or peripheral identifier.
   String address = '';
+
+  /// Resolved watch model family.
   WatchModel model = WatchModel.generic;
+
+  /// Active capability profile for the current watch.
   ModelInfo info = resolveModelInfo(WatchModel.generic);
 
+  /// Sets the watch [name] and automatically resolves its [model] and [info] capabilities.
   void setNameAndModel(String name) {
     this.name = name;
     shortName = deriveShortName(name);

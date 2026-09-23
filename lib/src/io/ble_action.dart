@@ -1,11 +1,13 @@
 import 'dart:typed_data';
 
 /// BLE action ADT mirroring `gshock_api/src/gshock_api/iolib/actions.py`.
+/// @nodoc
 sealed class BleAction {
   const BleAction();
 }
 
 /// A write to a BLE handle.
+/// @nodoc
 class WriteAction extends BleAction {
   const WriteAction({required this.handle, required this.data});
 
@@ -17,6 +19,7 @@ class WriteAction extends BleAction {
 }
 
 /// A read from a BLE handle.
+/// @nodoc
 class ReadAction extends BleAction {
   const ReadAction({required this.handle});
 

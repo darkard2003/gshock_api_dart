@@ -6,18 +6,27 @@ import '../io/packet.dart';
 import '../util/cancelable_result.dart';
 import '../util/logger.dart';
 
-/// DST watch states.
+/// {@category Data Models}
+///
+/// Daylight Saving Time (DST) watch state flags queried via `GshockApi.getDstWatchState`.
 enum DtsState {
+  /// Standard state (0).
   zero(0),
+
+  /// Secondary state (2).
   two(2),
+
+  /// Extended state (4).
   four(4);
 
   const DtsState(this.value);
 
+  /// Raw byte value.
   final int value;
 }
 
 /// Pure functional DST watch-state command generator.
+/// @nodoc
 class DstWatchStateIOFunctional {
   DstWatchStateIOFunctional._();
 
@@ -30,6 +39,7 @@ class DstWatchStateIOFunctional {
 }
 
 /// Stateful wrapper around [DstWatchStateIOFunctional].
+/// @nodoc
 class DstWatchStateIO {
   DstWatchStateIO._();
 

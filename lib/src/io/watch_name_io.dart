@@ -8,6 +8,7 @@ import '../util/cancelable_result.dart';
 import '../util/logger.dart';
 
 /// Pure functional watch-name codec.
+/// @nodoc
 class WatchNameIOFunctional {
   WatchNameIOFunctional._();
 
@@ -26,6 +27,7 @@ class WatchNameIOFunctional {
 }
 
 /// Stateful wrapper around [WatchNameIOFunctional].
+/// @nodoc
 class WatchNameIO {
   WatchNameIO._();
 

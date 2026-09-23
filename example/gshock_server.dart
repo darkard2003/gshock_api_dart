@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import '../adapters/linux_bluez/bluez_transport.dart';
 import 'package:gshock_api_dart/gshock_api_dart.dart';
 
 /// Formatted logger for the G-Shock Time Sync Server supporting console and file logs.

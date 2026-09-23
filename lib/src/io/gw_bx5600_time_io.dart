@@ -17,6 +17,7 @@ const double emptySlotLat = 0.0;
 const double emptySlotLon = 0.0;
 
 /// GW-BX5600 / GMW-BZ5000 four-step SP time-set flow.
+/// @nodoc
 class GwBx5600TimeIO {
   GwBx5600TimeIO._();
 

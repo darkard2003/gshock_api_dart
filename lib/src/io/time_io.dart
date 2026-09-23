@@ -9,6 +9,7 @@ import '../util/bytes.dart';
 import '../util/logger.dart';
 
 /// Pure functional current-time encoder.
+/// @nodoc
 class TimeEncoderPure {
   TimeEncoderPure._();
 
@@ -32,6 +33,7 @@ class TimeEncoderPure {
 }
 
 /// Pure functional command generator.
+/// @nodoc
 class TimeIOFunctional {
   TimeIOFunctional._();
 
@@ -71,6 +73,7 @@ class TimeIOFunctional {
 }
 
 /// Stateful adapter wrapper.
+/// @nodoc
 class TimeIO {
   TimeIO._();
 
@@ -110,6 +113,7 @@ class TimeIO {
 }
 
 /// Legacy encoder class delegating to [TimeEncoderPure].
+/// @nodoc
 class TimeEncoder {
   TimeEncoder._();
 

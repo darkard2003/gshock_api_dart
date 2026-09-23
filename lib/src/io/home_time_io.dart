@@ -7,6 +7,7 @@ import '../util/cancelable_result.dart';
 import 'world_cities_io.dart';
 
 /// Pure functional HomeTime processing.
+/// @nodoc
 class HomeTimeIOFunctional {
   HomeTimeIOFunctional._();
 
@@ -22,6 +23,7 @@ class HomeTimeIOFunctional {
 
 /// Stateful HomeTime wrapper delegating the read to [WorldCitiesIO] or the
 /// dedicated `0x24` home-time characteristic (MTG-B3000).
+/// @nodoc
 class HomeTimeIO {
   HomeTimeIO._();
 

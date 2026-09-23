@@ -10,6 +10,7 @@ import '../util/cancelable_result.dart';
 import '../util/logger.dart';
 
 /// Pure functional timer codec.
+/// @nodoc
 class TimerIOFunctional {
   TimerIOFunctional._();
 
@@ -74,6 +75,7 @@ class TimerIOFunctional {
 }
 
 /// Stateful wrapper around [TimerIOFunctional].
+/// @nodoc
 class TimerIO {
   TimerIO._();
 

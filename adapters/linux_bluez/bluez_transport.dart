@@ -4,14 +4,16 @@ import 'dart:typed_data';
 
 import 'package:bluez/bluez.dart';
 
-import '../exceptions.dart';
-import '../util/logger.dart';
-import 'gshock_scanner.dart';
+import 'package:gshock_api_dart/gshock_api_dart.dart';
 
+/// {@category Connection & Transport}
+///
 /// Pure-Dart Linux Bluetooth transport for desktop, Raspberry Pi, and servers.
 ///
-/// Communicates with BlueZ directly over the system D-Bus via `package:bluez`.
+/// Communicates directly with the system BlueZ daemon over D-Bus via `package:bluez`.
+/// Handles pairing, connection, MTU negotiation, characteristic discovery, and notifications.
 class BluezTransport implements BleTransport {
+  /// Creates a Linux BlueZ transport optionally targeting [deviceAddress].
   BluezTransport({this.deviceAddress});
 
   String? deviceAddress;
@@ -78,7 +80,8 @@ class BluezTransport implements BleTransport {
         void checkDevice(BlueZDevice d) {
           final addr = d.address.toUpperCase();
           final name = (d.name.isNotEmpty ? d.name : d.alias).toUpperCase();
-          final isMatch = addr == targetAddr ||
+          final isMatch =
+              addr == targetAddr ||
               name.contains('CASIO') ||
               name.contains('GA-B2100');
 
@@ -108,9 +111,7 @@ class BluezTransport implements BleTransport {
           } catch (_) {}
         }
 
-        stdout.writeln(
-          'Scanning for watch broadcast (waiting up to 60s)...',
-        );
+        stdout.writeln('Scanning for watch broadcast (waiting up to 60s)...');
 
         try {
           dev = await completer.future.timeout(
@@ -312,8 +313,14 @@ class BluezTransport implements BleTransport {
   }
 }
 
-/// Linux scanner using `package:bluez` over D-Bus.
+/// {@category Connection & Transport}
+///
+/// Linux BLE scanner using `package:bluez` over the system D-Bus.
+///
+/// Scans for Bluetooth Low Energy devices advertising the Casio service UUID (`0x1804`)
+/// or matching watch names.
 class BluezScanner implements GshockScanner {
+  /// Creates a const [BluezScanner] instance.
   const BluezScanner();
 
   @override

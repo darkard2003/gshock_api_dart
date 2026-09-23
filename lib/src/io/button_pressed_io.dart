@@ -6,22 +6,39 @@ import '../io/packet.dart';
 import '../util/cancelable_result.dart';
 import '../util/logger.dart';
 
-/// Buttons reported by the watch.
+/// {@category Data Models}
+///
+/// Buttons and events reported by the watch during connection handshakes or button presses.
 enum WatchButton {
+  /// Upper left button.
   upperLeft(1),
+
+  /// Lower left button (mode / time sync trigger).
   lowerLeft(2),
+
+  /// Upper right button.
   upperRight(3),
+
+  /// Lower right button (action / phone finder trigger).
   lowerRight(4),
+
+  /// Connection initiated without a button press (e.g. background schedule or app connection).
   noButton(5),
+
+  /// Unrecognized button code.
   invalid(6),
+
+  /// Phone finder alert trigger.
   find(7);
 
   const WatchButton(this.value);
 
+  /// Raw integer code reported by the watch.
   final int value;
 }
 
 /// Button indicator codes from the BLE feature payload.
+/// @nodoc
 abstract final class _ButtonIndicatorCodes {
   static const int reset = 0;
   static const int leftPress = 1;
@@ -31,6 +48,7 @@ abstract final class _ButtonIndicatorCodes {
 }
 
 /// Pure functional button-pressed decoder.
+/// @nodoc
 class ButtonPressedIOFunctional {
   ButtonPressedIOFunctional._();
 
@@ -72,6 +90,7 @@ class ButtonPressedIOFunctional {
 }
 
 /// Stateful wrapper around [ButtonPressedIOFunctional].
+/// @nodoc
 class ButtonPressedIO {
   ButtonPressedIO._();
 

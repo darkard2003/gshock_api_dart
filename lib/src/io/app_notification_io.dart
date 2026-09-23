@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import '../model/app_notification.dart';
 
 /// Result of reading a length-prefixed string.
+/// @nodoc
 class StringResult {
   const StringResult(this.string, this.offset);
 
@@ -15,6 +16,7 @@ class StringResult {
 ///
 /// Quirk D4: Python declares `xor_encode_buffer` without `self`; we implement
 /// it as a normal static helper.
+/// @nodoc
 class AppNotificationIO {
   AppNotificationIO._();
 

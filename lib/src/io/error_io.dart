@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import '../util/logger.dart';
 
 /// Logs error characteristic payloads.
+/// @nodoc
 class ErrorIO {
   ErrorIO._();
 

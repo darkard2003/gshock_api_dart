@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import '../adapters/linux_bluez/bluez_transport.dart';
 import 'package:gshock_api_dart/gshock_api_dart.dart';
 
 void prompt() {

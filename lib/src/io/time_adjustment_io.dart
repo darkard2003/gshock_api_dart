@@ -10,6 +10,7 @@ import '../util/logger.dart';
 import 'error_io.dart';
 
 /// Pure functional time-adjustment codec.
+/// @nodoc
 class TimeAdjustmentIOFunctional {
   TimeAdjustmentIOFunctional._();
 
@@ -56,6 +57,7 @@ class TimeAdjustmentIOFunctional {
 }
 
 /// Stateful wrapper around [TimeAdjustmentIOFunctional].
+/// @nodoc
 class TimeAdjustmentIO {
   TimeAdjustmentIO._();
 

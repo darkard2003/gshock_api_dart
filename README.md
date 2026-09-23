@@ -13,8 +13,8 @@ Provides full feature support including automatic time synchronization, alarms, 
 
 - **Pure-Dart Core Engine**: All packet codecs, protocol state machines, Casio timezone tables, models, and dispatcher logic are pure Dart (`dart:typed_data`, `dart:async`, and `package:timezone`). Runs headless in CI, backend server daemons, Raspberry Pi, desktop, and Flutter mobile apps.
 - **Pluggable BLE Hardware Transports**: Connect to watches using the transport best suited for your platform:
-  - **Flutter (Android, iOS, macOS)**: Drop-in adapters powered by [`flutter_blue_plus`](https://pub.dev/packages/flutter_blue_plus) (available under `flutter_adapter/`).
-  - **Linux (Desktop, Raspberry Pi, Servers)**: Native D-Bus transport powered by `package:bluez` (no Flutter or external CLI wrappers required).
+  - **Flutter (Android, iOS, macOS, Windows)**: Drop-in adapters powered by [`flutter_blue_plus`](https://pub.dev/packages/flutter_blue_plus) (available under `adapters/flutter_blue_plus/`).
+  - **Linux (Desktop, Raspberry Pi, Servers)**: Native D-Bus transport powered by `package:bluez` (available under `adapters/linux_bluez/`).
   - **Testing & Simulation**: Built-in `MockTransport` and `MockScanner` with recorded watch packet fixtures for fast, deterministic unit and integration tests.
 - **Adaptive Protocol Negotiation**: Automatically detects watch capabilities and selects the correct communication strategy:
   - **Standard Protocol**: GW-B5600, DW-B5600, GA-B2100, GM-B2100, GST-B100, etc.
@@ -71,8 +71,11 @@ flutter pub add flutter_blue_plus
 
 ### 1. Minimal Time Sync (Linux / Desktop)
 
+Using the Linux reference adapter from `adapters/linux_bluez/`:
+
 ```dart
 import 'package:gshock_api_dart/gshock_api_dart.dart';
+import 'adapters/linux_bluez/bluez_transport.dart';
 
 Future<void> main() async {
   // Setup Linux BlueZ transport (connects to any Casio watch or a target MAC)
@@ -108,13 +111,13 @@ Future<void> main() async {
 
 ### 2. Flutter Mobile Application
 
-Copy or import the adapters in `flutter_adapter/`:
+Copy or import the adapters in `adapters/flutter_blue_plus/`:
 
 ```dart
 import 'package:flutter/material.dart';
 import 'package:gshock_api_dart/gshock_api_dart.dart';
-import 'flutter_adapter/flutter_blue_plus_transport.dart';
-import 'flutter_adapter/flutter_blue_plus_scanner.dart';
+import 'adapters/flutter_blue_plus/flutter_blue_plus_transport.dart';
+import 'adapters/flutter_blue_plus/flutter_blue_plus_scanner.dart';
 
 Future<void> syncWatchFromFlutter() async {
   final connection = GshockConnection(
@@ -327,10 +330,10 @@ dart run example/gshock_server.dart [options]
 ```
 gshock_api_dart/
 ├── lib/
-│   ├── gshock_api_dart.dart                 # Main package exports
+│   ├── gshock_api_dart.dart                 # Main package exports (100% pure Dart)
 │   └── src/
 │       ├── api/gshock_api.dart              # High-level GshockApi facade
-│       ├── connection/                      # Connection protocol, BlueZ D-Bus, MockTransport
+│       ├── connection/                      # GshockConnection, BleTransport, MockTransport, MockScanner
 │       ├── constants/casio_constants.dart   # BLE UUIDs, handles, and command codes
 │       ├── dispatcher/message_dispatcher.dart # Command dispatching & notification router
 │       ├── io/                              # Feature IO codecs (Alarms, Timer, Events, etc.)
@@ -338,10 +341,13 @@ gshock_api_dart/
 │       ├── protocols/                       # WatchProtocol implementations (Standard, MIP, Analogue)
 │       ├── timezone/casio_time_zone_helper.dart # 41-zone Casio timezone database
 │       └── util/                            # Bytes, CancelableResult, GshockLogger
-├── flutter_adapter/                         # Drop-in Flutter BLE adapter layer
-│   ├── flutter_blue_plus_transport.dart
-│   ├── flutter_blue_plus_scanner.dart
-│   └── example_flutter_screen.dart
+├── adapters/                                # Reference hardware BLE adapters
+│   ├── flutter_blue_plus/                   # Flutter (Android, iOS, macOS, Windows)
+│   │   ├── flutter_blue_plus_transport.dart
+│   │   ├── flutter_blue_plus_scanner.dart
+│   │   └── example_flutter_screen.dart
+│   └── linux_bluez/                         # Native Linux BlueZ D-Bus transport
+│       └── bluez_transport.dart
 ├── example/                                 # Ready-to-run example programs
 │   ├── sync_time_simple.dart                # Minimal 40-line clock synchronization
 │   ├── alarms_and_timer.dart                # Reading/setting alarms and countdown timer
@@ -386,7 +392,7 @@ Special thanks to the Casio reverse-engineering community for documenting the BL
 
 ## License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License — see the [LICENSE](https://github.com/darkard2003/gshock_api_dart/blob/main/LICENSE) file for details.
 
 ```text
 Portions copyright (c) 2026 Kaushik Chowdhury (darkard2003) (Dart port)

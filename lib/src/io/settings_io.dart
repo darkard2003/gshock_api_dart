@@ -11,6 +11,7 @@ import '../util/cancelable_result.dart';
 import '../util/logger.dart';
 
 /// Pure functional settings codec.
+/// @nodoc
 class SettingsIOFunctional {
   SettingsIOFunctional._();
 
@@ -155,6 +156,7 @@ class SettingsIOFunctional {
 }
 
 /// Stateful wrapper around [SettingsIOFunctional].
+/// @nodoc
 class SettingsIO {
   SettingsIO._();
 

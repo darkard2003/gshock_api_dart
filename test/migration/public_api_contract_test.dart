@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import '../../adapters/linux_bluez/bluez_transport.dart';
 import 'package:gshock_api_dart/gshock_api_dart.dart';
 import 'package:test/test.dart';
 
@@ -130,7 +131,6 @@ void main() {
       final symbols = <Object>[
         GshockApi, // facade
         GshockConnection, MockTransport, MockScanner, BleDevice, // transport
-        BluezTransport, BluezScanner, // Linux transport
         AlwaysConnectedWatchFilter, // always-connected throttling
         CasioConstants, // constants
         MessageDispatcher, // dispatcher
@@ -143,7 +143,12 @@ void main() {
         CasioTimeZoneHelper, CasioTimeZone,
         Bytes, CancelableResult, gshockLogger,
       ];
-      expect(symbols.length, 30);
+      expect(symbols.length, 28);
+
+      final adapterSymbols = <Object>[
+        BluezTransport, BluezScanner, // Linux transport adapter
+      ];
+      expect(adapterSymbols.length, 2);
     });
 
     test('casioServiceUuid matches the Python scanner service filter', () {

@@ -1,11 +1,19 @@
 import 'package:timezone/timezone.dart' as tz;
 
-/// Event date value object.
+/// {@category Data Models}
+///
+/// Date representation for watch calendar events and reminders.
 class EventDate {
+  /// Creates an [EventDate] with specified [year], [month], and [day].
   const EventDate({required this.year, required this.month, required this.day});
 
+  /// Year (e.g. 2026).
   final int year;
+
+  /// Month name or numeric string (e.g. `'JANUARY'` or `'1'`).
   final String month;
+
+  /// Day of month (1 to 31).
   final int day;
 
   factory EventDate.fromJson(Map<String, Object?> json) => EventDate(
@@ -41,14 +49,25 @@ class EventDate {
   String toString() => 'year: $year, month: $month, day: $day';
 }
 
-/// Repeat-period constants.
+/// {@category Data Models}
+///
+/// Recurrence period constants for watch reminders.
 class RepeatPeriod {
   RepeatPeriod._();
 
+  /// One-time event that does not repeat.
   static const String never = 'NEVER';
+
+  /// Repeats daily.
   static const String daily = 'DAILY';
+
+  /// Repeats weekly on specified days of the week.
   static const String weekly = 'WEEKLY';
+
+  /// Repeats monthly.
   static const String monthly = 'MONTHLY';
+
+  /// Repeats yearly on the anniversary date.
   static const String yearly = 'YEARLY';
 }
 
@@ -87,8 +106,14 @@ EventDate createEventDate(double timeMs, String zoneName) {
   return EventDate(year: start.year, month: '${start.month}', day: start.day);
 }
 
-/// Event/reminder model.
+/// {@category Data Models}
+///
+/// Model representing a single reminder/event stored on the watch.
+///
+/// Watches with reminder support (such as GW-B5600 and GMW-B5000) have 5 slots
+/// displaying a text [title] on the LCD, a start date, end date, and recurrence rule ([repeatPeriod]).
 class Event {
+  /// Creates an [Event] instance.
   Event({
     this.title = '',
     this.startDate,
@@ -100,9 +125,16 @@ class Event {
     this.selected = false,
   });
 
+  /// Short reminder title displayed on the watch LCD screen (up to 18 characters).
   String title;
+
+  /// Start date of the reminder.
   EventDate? startDate;
+
+  /// End date of the reminder.
   EventDate? endDate;
+
+  /// Repeat rule (one of the constants in [RepeatPeriod]).
   String repeatPeriod;
   List<String>? daysOfWeek;
   bool enabled;
